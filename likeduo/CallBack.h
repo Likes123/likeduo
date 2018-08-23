@@ -1,11 +1,4 @@
-// Copyright 2010, Shuo Chen.  All rights reserved.
-// http://code.google.com/p/muduo/
-//
-// Use of this source code is governed by a BSD-style license
-// that can be found in the License file.
 
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
-//
 // This is a public header file, it must only include public header files.
 
 #ifndef MUDUO_NET_CALLBACKS_H
@@ -26,7 +19,7 @@ namespace muduo
 	{
 		if (false)
 		{
-			implicit_cast<From*, To*>(0);
+			static_cast<To*>(0);
 		}
 
 #ifndef NDEBUG
@@ -51,13 +44,11 @@ namespace muduo
 
 		// the data has been read to (buf, len)
 		typedef boost::function<void(const TcpConnectionPtr&,
-			Buffer*,
-			Timestamp)> MessageCallback;
+			Buffer*)> MessageCallback;
 
 		void defaultConnectionCallback(const TcpConnectionPtr& conn);
 		void defaultMessageCallback(const TcpConnectionPtr& conn,
-			Buffer* buffer,
-			Timestamp receiveTime);
+			Buffer* buffer);
 
 	}
 }

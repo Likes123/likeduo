@@ -1,0 +1,19 @@
+﻿  VisualGDB: Sending 1 updated source file to build machine...
+  VisualGDB: Run "make " in directory "/home/laili/vsGDB/likeduo/Debug" on laili@192.168.1.55 (SSH)
+  Scanning dependencies of target likeduo
+  [ 14%] Building CXX object CMakeFiles/likeduo.dir/EventLoop.cpp.o
+  [ 28%] Building CXX object CMakeFiles/likeduo.dir/Poller.cpp.o
+  [ 42%] Linking CXX executable likeduo
+  CMakeFiles/likeduo.dir/EventLoop.cpp.o: In function `muduo::net::EventLoop::EventLoop()':
+D:\VSWorkPlace\likeduo\likeduo\EventLoop.cpp(69): error : undefined reference to `muduo::net::Poller::newDefaultPoller(muduo::net::EventLoop*)'
+collect2 : error : ld returned 1 exit status
+  make[2]: *** [likeduo] Error 1
+  make[1]: *** [CMakeFiles/likeduo.dir/all] Error 2
+  make: *** [all] Error 2
+  -------------------------------------------------------------
+  Command exited with code 2
+  Executable: make
+  Arguments: 
+  Directory: /home/laili/vsGDB/likeduo/Debug
+VisualGDB : error : Command-line action failed
+D:\VS2017\Common7\IDE\VC\VCTargets\Microsoft.MakeFile.Targets(44,5): error MSB3073: 命令“"C:\Program Files (x86)\Sysprogs\VisualGDB\\VisualGDB.exe" /build "D:\VSWorkPlace\likeduo\likeduo\likeduo.vcxproj" "/solution:D:\VSWorkPlace\likeduo\likeduo.sln" "/config:Debug" "/platform:Win32"”已退出，代码为 1。

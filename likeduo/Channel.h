@@ -8,7 +8,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
-
+#include <string>
 //#include <muduo/base/Timestamp.h>
 
 namespace muduo
@@ -28,12 +28,13 @@ namespace muduo
 		{
 		public:
 			typedef boost::function<void()> EventCallback;
-			typedef boost::function<void(Timestamp)> ReadEventCallback;
+			typedef boost::function<void(void)> ReadEventCallback;
 
 			Channel(EventLoop* loop, int fd);
 			~Channel();
 
-			void handleEvent(Timestamp receiveTime);
+			//void handleEvent(Timestamp receiveTime);
+			void handleEvent(void);
 			void setReadCallback(const ReadEventCallback& cb)
 			{
 				readCallback_ = cb;
@@ -92,8 +93,8 @@ namespace muduo
 			void set_index(int idx) { index_ = idx; }
 
 			// for debug
-			string reventsToString() const;
-			string eventsToString() const;
+			std::string reventsToString() const;
+			std::string eventsToString() const;
 
 			void doNotLogHup() { logHup_ = false; }
 
@@ -101,10 +102,10 @@ namespace muduo
 			void remove();
 
 		private:
-			static string eventsToString(int fd, int ev);
+			static  std::string eventsToString(int fd, int ev);
 
 			void update();
-			void handleEventWithGuard(Timestamp receiveTime);
+			void handleEventWithGuard(void);
 
 			static const int kNoneEvent;
 			static const int kReadEvent;

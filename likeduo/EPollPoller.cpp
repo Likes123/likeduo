@@ -1,9 +1,9 @@
 
 
-//#include <muduo/net/poller/EPollPoller.h>
+#include "EPollPoller.h"
 
-//#include <muduo/base/Logging.h>
-//#include <muduo/net/Channel.h>
+#include "Logging.h"
+#include "Channel.h"
 
 #include <boost/static_assert.hpp>
 
@@ -18,7 +18,7 @@ using namespace muduo::net;
 
 // On Linux, the constants of poll(2) and epoll(4)
 // are expected to be the same.
-BOOST_STATIC_ASSERT(EPOLLIN == POLLIN);
+BOOST_STATIC_ASSERT(EPOLLIN == POLLIN); //±‡“Î∆⁄æ≤Ã¨∂œ—‘
 BOOST_STATIC_ASSERT(EPOLLPRI == POLLPRI);
 BOOST_STATIC_ASSERT(EPOLLOUT == POLLOUT);
 BOOST_STATIC_ASSERT(EPOLLRDHUP == POLLRDHUP);
@@ -48,7 +48,7 @@ EPollPoller::~EPollPoller()
 	::close(epollfd_);
 }
 
-Timestamp EPollPoller::poll(int timeoutMs, ChannelList* activeChannels)
+void EPollPoller::poll(int timeoutMs, ChannelList* activeChannels)
 {
 	LOG_TRACE << "fd total count " << channels_.size();
 	int numEvents = ::epoll_wait(epollfd_,
@@ -56,12 +56,12 @@ Timestamp EPollPoller::poll(int timeoutMs, ChannelList* activeChannels)
 		static_cast<int>(events_.size()),
 		timeoutMs);
 	int savedErrno = errno;
-	Timestamp now(Timestamp::now());
+	//Timestamp now(Timestamp::now());
 	if (numEvents > 0)
 	{
 		LOG_TRACE << numEvents << " events happened";
 		fillActiveChannels(numEvents, activeChannels);
-		if (implicit_cast<size_t>(numEvents) == events_.size())
+		if (static_cast<size_t>(numEvents) == events_.size())
 		{
 			events_.resize(events_.size() * 2);
 		}
@@ -79,13 +79,13 @@ Timestamp EPollPoller::poll(int timeoutMs, ChannelList* activeChannels)
 			LOG_SYSERR << "EPollPoller::poll()";
 		}
 	}
-	return now;
+	//return now;
 }
 
 void EPollPoller::fillActiveChannels(int numEvents,
 	ChannelList* activeChannels) const
 {
-	assert(implicit_cast<size_t>(numEvents) <= events_.size());
+	assert(static_cast<size_t>(numEvents) <= events_.size());
 	for (int i = 0; i < numEvents; ++i)
 	{
 		Channel* channel = static_cast<Channel*>(events_[i].data.ptr);

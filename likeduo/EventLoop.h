@@ -1,10 +1,4 @@
-// Copyright 2010, Shuo Chen.  All rights reserved.
-// http://code.google.com/p/muduo/
-//
-// Use of this source code is governed by a BSD-style license
-// that can be found in the License file.
 
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
 //
 // This is a public header file, it must only include public header files.
 
@@ -18,10 +12,10 @@
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
 
-//#include <muduo/base/Mutex.h>
-//#include <muduo/base/CurrentThread.h> 用于线程的全局工具
+//#include "Mutex.h"
+//#include "CurrentThread.h"// 用于线程的全局工具
 //#include <muduo/base/Timestamp.h>
-#include "Callback.h"
+#include "CallBack.h"
 //#include <muduo/net/TimerId.h>
 
 namespace muduo
@@ -31,7 +25,7 @@ namespace muduo
 
 		class Channel;
 		class Poller;
-		class TimerQueue;
+		//class TimerQueue;
 
 		///
 		/// Reactor, at most one per thread.
@@ -61,7 +55,7 @@ namespace muduo
 			///
 			/// Time when poll returns, usually means data arrival.
 			///
-			Timestamp pollReturnTime() const { return pollReturnTime_; }
+			//Timestamp pollReturnTime() const { return pollReturnTime_; }
 
 			int64_t iteration() const { return iteration_; }
 
@@ -88,22 +82,22 @@ namespace muduo
 			/// Runs callback at 'time'.
 			/// Safe to call from other threads.
 			///
-			TimerId runAt(const Timestamp& time, const TimerCallback& cb);
+			//TimerId runAt(const Timestamp& time, const TimerCallback& cb);
 			///
 			/// Runs callback after @c delay seconds.
 			/// Safe to call from other threads.
 			///
-			TimerId runAfter(double delay, const TimerCallback& cb);
+			//TimerId runAfter(double delay, const TimerCallback& cb);
 			///
 			/// Runs callback every @c interval seconds.
 			/// Safe to call from other threads.
 			///
-			TimerId runEvery(double interval, const TimerCallback& cb);
+			//TimerId runEvery(double interval, const TimerCallback& cb);
 			///
 			/// Cancels the timer.
 			/// Safe to call from other threads.
 			///
-			void cancel(TimerId timerId);
+			//void cancel(TimerId timerId);
 
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
 			TimerId runAt(const Timestamp& time, TimerCallback&& cb);
@@ -117,15 +111,15 @@ namespace muduo
 			void removeChannel(Channel* channel);
 			bool hasChannel(Channel* channel);
 
-			// pid_t threadId() const { return threadId_; }
-			void assertInLoopThread()
-			{
-				if (!isInLoopThread())
-				{
-					abortNotInLoopThread();
-				}
-			}
-			bool isInLoopThread() const { return threadId_ == CurrentThread::tid(); }
+			//// pid_t threadId() const { return threadId_; }
+			//void assertInLoopThread()
+			//{
+			//	if (!isInLoopThread())
+			//	{
+			//		abortNotInLoopThread();
+			//	}
+			//}
+			//bool isInLoopThread() const { return threadId_ == CurrentThread::tid(); }
 			// bool callingPendingFunctors() const { return callingPendingFunctors_; }
 			bool eventHandling() const { return eventHandling_; }
 
@@ -147,7 +141,7 @@ namespace muduo
 			static EventLoop* getEventLoopOfCurrentThread();
 
 		private:
-			void abortNotInLoopThread();
+		 //	void abortNotInLoopThread();
 			void handleRead();  // waked up
 			void doPendingFunctors();
 
@@ -160,10 +154,10 @@ namespace muduo
 			bool eventHandling_; /* atomic */
 			bool callingPendingFunctors_; /* atomic */
 			int64_t iteration_;
-			const pid_t threadId_;
-			Timestamp pollReturnTime_;
+			//const pid_t threadId_;
+			//Timestamp pollReturnTime_;
 			boost::scoped_ptr<Poller> poller_;
-			boost::scoped_ptr<TimerQueue> timerQueue_;
+			//boost::scoped_ptr<TimerQueue> timerQueue_;
 			int wakeupFd_;
 			// unlike in TimerQueue, which is an internal class,
 			// we don't expose Channel to client.
@@ -174,7 +168,7 @@ namespace muduo
 			ChannelList activeChannels_;
 			Channel* currentActiveChannel_;
 
-			mutable MutexLock mutex_;
+		//	mutable MutexLock mutex_; //mutable 关键字，即使在const修饰的this中，依然可以改变的变量
 			std::vector<Functor> pendingFunctors_; // @GuardedBy mutex_
 		};
 

@@ -23,7 +23,7 @@ namespace muduo
 			EPollPoller(EventLoop* loop);
 			virtual ~EPollPoller();
 
-			virtual Timestamp poll(int timeoutMs, ChannelList* activeChannels);
+			virtual void poll(int timeoutMs, ChannelList* activeChannels);
 			virtual void updateChannel(Channel* channel);
 			virtual void removeChannel(Channel* channel);
 

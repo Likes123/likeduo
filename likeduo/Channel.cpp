@@ -1,6 +1,6 @@
 
 
-//#include <muduo/base/Logging.h>
+#include "Logging.h"
 #include "Channel.h"
 #include "EventLoop.h"
 
@@ -10,6 +10,7 @@
 
 using namespace muduo;
 using namespace muduo::net;
+using namespace std;
 
 const int Channel::kNoneEvent = 0;
 const int Channel::kReadEvent = POLLIN | POLLPRI;
@@ -32,13 +33,13 @@ Channel::~Channel()
 {
 	assert(!eventHandling_);
 	assert(!addedToLoop_);
-	if (loop_->isInLoopThread())
-	{
-		assert(!loop_->hasChannel(this));
-	}
+	//if (loop_->isInLoopThread())
+	//{
+	//	assert(!loop_->hasChannel(this));
+	//}
 }
 
-void Channel::tie(const boost::shared_ptr<void>& obj)
+void Channel::tie(const boost::shared_ptr<void>& obj)//?
 {
 	tie_ = obj;
 	tied_ = true;
@@ -57,24 +58,24 @@ void Channel::remove()
 	loop_->removeChannel(this);
 }
 
-void Channel::handleEvent(Timestamp receiveTime)
+void Channel::handleEvent(void)
 {
 	boost::shared_ptr<void> guard;
-	if (tied_)
+	if (tied_)//??
 	{
-		guard = tie_.lock();
+		guard = tie_.lock();//tie_是一个weak_ptr，通过函数调用lock，升级为share_ptr
 		if (guard)
 		{
-			handleEventWithGuard(receiveTime);
+			handleEventWithGuard();
 		}
 	}
 	else
 	{
-		handleEventWithGuard(receiveTime);
+		handleEventWithGuard();
 	}
 }
 
-void Channel::handleEventWithGuard(Timestamp receiveTime)
+void Channel::handleEventWithGuard(void)
 {
 	eventHandling_ = true;
 	LOG_TRACE << reventsToString();
@@ -98,7 +99,7 @@ void Channel::handleEventWithGuard(Timestamp receiveTime)
 	}
 	if (revents_ & (POLLIN | POLLPRI | POLLRDHUP))
 	{
-		if (readCallback_) readCallback_(receiveTime);
+		if (readCallback_) readCallback_();
 	}
 	if (revents_ & POLLOUT)
 	{

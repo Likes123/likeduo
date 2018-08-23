@@ -17,12 +17,6 @@
       <UniqueIdentifier>{b6763daa-c891-4653-b1f3-e47e67dad80a}</UniqueIdentifier>
       <Extensions>*.vgdbsettings</Extensions>
     </Filter>
-    <Filter Include="Header files\poller">
-      <UniqueIdentifier>{c4a5b989-bb6e-4b78-89f4-4510249ac7f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source files\poller">
-      <UniqueIdentifier>{d7718651-a9c4-4019-beb7-588a93c68b56}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="likeduo.cpp">
@@ -38,6 +32,9 @@
       <Filter>Source files</Filter>
     </ClCompile>
     <ClCompile Include="EventLoop.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="SocketOps.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,6 +65,15 @@
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="CallBack.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketOps.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="Endian.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="Logging.h">
       <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>

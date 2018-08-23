@@ -1,19 +1,13 @@
-// Copyright 2010, Shuo Chen.  All rights reserved.
-// http://code.google.com/p/muduo/
-//
-// Use of this source code is governed by a BSD-style license
-// that can be found in the License file.
 
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
 
 #include "EventLoop.h"
 
-//#include <muduo/base/Logging.h>
-//#include <muduo/base/Mutex.h>
+
+//#include "Mutex.h"
 #include "Channel.h"
 #include "Poller.h"
-#include <muduo/net/SocketsOps.h>
-//#include <muduo/net/TimerQueue.h>
+#include "SocketOps.h"
+#include "Logging.h"
 
 #include <boost/bind.hpp>
 
@@ -26,7 +20,7 @@ using namespace muduo::net;
 
 namespace
 {
-	__thread EventLoop* t_loopInThisThread = 0;
+	 EventLoop* t_loopInThisThread = 0;
 
 	const int kPollTimeMs = 10000;
 
@@ -67,18 +61,18 @@ EventLoop::EventLoop()
 	eventHandling_(false),
 	callingPendingFunctors_(false),
 	iteration_(0),
-	threadId_(CurrentThread::tid()),
+	//threadId_(CurrentThread::tid()),
 	poller_(Poller::newDefaultPoller(this)),
-	timerQueue_(new TimerQueue(this)),
+	//timerQueue_(new TimerQueue(this)),
 	wakeupFd_(createEventfd()),
 	wakeupChannel_(new Channel(this, wakeupFd_)),
 	currentActiveChannel_(NULL)
 {
-	LOG_DEBUG << "EventLoop created " << this << " in thread " << threadId_;
+	LOG_DEBUG << "EventLoop created " << this << " in thread " ;
 	if (t_loopInThisThread)
 	{
 		LOG_FATAL << "Another EventLoop " << t_loopInThisThread
-			<< " exists in this thread " << threadId_;
+			<< " exists in this thread ";
 	}
 	else
 	{
@@ -92,8 +86,8 @@ EventLoop::EventLoop()
 
 EventLoop::~EventLoop()
 {
-	LOG_DEBUG << "EventLoop " << this << " of thread " << threadId_
-		<< " destructs in thread " << CurrentThread::tid();
+	LOG_DEBUG << "EventLoop " << this << " of thread " 
+		<< " destructs in thread " ;
 	wakeupChannel_->disableAll();
 	wakeupChannel_->remove();
 	::close(wakeupFd_);
@@ -103,7 +97,7 @@ EventLoop::~EventLoop()
 void EventLoop::loop()
 {
 	assert(!looping_);
-	assertInLoopThread();
+	//assertInLoopThread();
 	looping_ = true;
 	quit_ = false;  // FIXME: what if someone calls quit() before loop() ?
 	LOG_TRACE << "EventLoop " << this << " start looping";
@@ -111,19 +105,19 @@ void EventLoop::loop()
 	while (!quit_)
 	{
 		activeChannels_.clear();
-		pollReturnTime_ = poller_->poll(kPollTimeMs, &activeChannels_);
+		poller_->poll(kPollTimeMs, &activeChannels_);
 		++iteration_;
-		if (Logger::logLevel() <= Logger::TRACE)
-		{
-			printActiveChannels();
-		}
+		//if (Logger::logLevel() <= Logger::TRACE)
+		//{
+		//	printActiveChannels();
+		//}
 		// TODO sort channel by priority
 		eventHandling_ = true;
 		for (ChannelList::iterator it = activeChannels_.begin();
 			it != activeChannels_.end(); ++it)
 		{
 			currentActiveChannel_ = *it;
-			currentActiveChannel_->handleEvent(pollReturnTime_);
+			currentActiveChannel_->handleEvent();
 		}
 		currentActiveChannel_ = NULL;
 		eventHandling_ = false;
@@ -140,59 +134,59 @@ void EventLoop::quit()
 	// There is a chance that loop() just executes while(!quit_) and exits,
 	// then EventLoop destructs, then we are accessing an invalid object.
 	// Can be fixed using mutex_ in both places.
-	if (!isInLoopThread())
-	{
-		wakeup();
-	}
+	//if (!isInLoopThread())
+	//{
+	//	wakeup();
+	//}
 }
 
 void EventLoop::runInLoop(const Functor& cb)
 {
-	if (isInLoopThread())
+	/*if (isInLoopThread())
 	{
 		cb();
 	}
 	else
 	{
 		queueInLoop(cb);
-	}
+	}*/
 }
 
 void EventLoop::queueInLoop(const Functor& cb)
 {
-	{
-		MutexLockGuard lock(mutex_);
-		pendingFunctors_.push_back(cb);
-	}
+	//{
+	//	MutexLockGuard lock(mutex_);
+	//	pendingFunctors_.push_back(cb);
+	//}
 
-	if (!isInLoopThread() || callingPendingFunctors_)
-	{
-		wakeup();
-	}
+	//if (!isInLoopThread() || callingPendingFunctors_)
+	//{
+	//	wakeup();
+	//}
 }
 
 size_t EventLoop::queueSize() const
 {
-	MutexLockGuard lock(mutex_);
+//	MutexLockGuard lock(mutex_);
 	return pendingFunctors_.size();
 }
-
-TimerId EventLoop::runAt(const Timestamp& time, const TimerCallback& cb)
-{
-	return timerQueue_->addTimer(cb, time, 0.0);
-}
-
-TimerId EventLoop::runAfter(double delay, const TimerCallback& cb)
-{
-	Timestamp time(addTime(Timestamp::now(), delay));
-	return runAt(time, cb);
-}
-
-TimerId EventLoop::runEvery(double interval, const TimerCallback& cb)
-{
-	Timestamp time(addTime(Timestamp::now(), interval));
-	return timerQueue_->addTimer(cb, time, interval);
-}
+//
+//TimerId EventLoop::runAt(const Timestamp& time, const TimerCallback& cb)
+//{
+//	return timerQueue_->addTimer(cb, time, 0.0);
+//}
+//
+//TimerId EventLoop::runAfter(double delay, const TimerCallback& cb)
+//{
+//	Timestamp time(addTime(Timestamp::now(), delay));
+//	return runAt(time, cb);
+//}
+//
+//TimerId EventLoop::runEvery(double interval, const TimerCallback& cb)
+//{
+//	Timestamp time(addTime(Timestamp::now(), interval));
+//	return timerQueue_->addTimer(cb, time, interval);
+//}
 
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
 // FIXME: remove duplication
@@ -239,22 +233,22 @@ TimerId EventLoop::runEvery(double interval, TimerCallback&& cb)
 }
 #endif
 
-void EventLoop::cancel(TimerId timerId)
-{
-	return timerQueue_->cancel(timerId);
-}
+//void EventLoop::cancel(TimerId timerId)
+//{
+//	return timerQueue_->cancel(timerId);
+//}
 
 void EventLoop::updateChannel(Channel* channel)
 {
 	assert(channel->ownerLoop() == this);
-	assertInLoopThread();
+	//assertInLoopThread();
 	poller_->updateChannel(channel);
 }
 
 void EventLoop::removeChannel(Channel* channel)
 {
 	assert(channel->ownerLoop() == this);
-	assertInLoopThread();
+	//assertInLoopThread();
 	if (eventHandling_)
 	{
 		assert(currentActiveChannel_ == channel ||
@@ -266,16 +260,16 @@ void EventLoop::removeChannel(Channel* channel)
 bool EventLoop::hasChannel(Channel* channel)
 {
 	assert(channel->ownerLoop() == this);
-	assertInLoopThread();
+	//assertInLoopThread();
 	return poller_->hasChannel(channel);
 }
 
-void EventLoop::abortNotInLoopThread()
-{
-	LOG_FATAL << "EventLoop::abortNotInLoopThread - EventLoop " << this
-		<< " was created in threadId_ = " << threadId_
-		<< ", current thread id = " << CurrentThread::tid();
-}
+//void EventLoop::abortNotInLoopThread()
+//{
+//	LOG_FATAL << "EventLoop::abortNotInLoopThread - EventLoop " << this
+//		<< " was created in threadId_ = " << threadId_
+//		<< ", current thread id = " << CurrentThread::tid();
+//}
 
 void EventLoop::wakeup()
 {
@@ -303,7 +297,7 @@ void EventLoop::doPendingFunctors()
 	callingPendingFunctors_ = true;
 
 	{
-		MutexLockGuard lock(mutex_);
+		//MutexLockGuard lock(mutex_);
 		functors.swap(pendingFunctors_);
 	}
 
