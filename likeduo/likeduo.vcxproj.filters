@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source files">
+      <UniqueIdentifier>{a7422dad-fb7a-4eb6-a4b5-561007c4400b}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header files">
+      <UniqueIdentifier>{1faee5c7-ca35-472e-8fda-94287d3e38a0}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource files">
+      <UniqueIdentifier>{78f3c7bb-b2a3-4f2a-b520-986b30906f86}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="VisualGDB settings">
+      <UniqueIdentifier>{b6763daa-c891-4653-b1f3-e47e67dad80a}</UniqueIdentifier>
+      <Extensions>*.vgdbsettings</Extensions>
+    </Filter>
+    <Filter Include="Header files\poller">
+      <UniqueIdentifier>{c4a5b989-bb6e-4b78-89f4-4510249ac7f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\poller">
+      <UniqueIdentifier>{d7718651-a9c4-4019-beb7-588a93c68b56}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="likeduo.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="EPollPoller.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="Poller.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="Channel.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="EventLoop.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt">
+      <Filter>Source files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="likeduo-Debug.vgdbsettings">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+    <None Include="likeduo-Release.vgdbsettings">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="EPollPoller.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="Poller.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="Channel.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="EventLoop.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="CallBack.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
