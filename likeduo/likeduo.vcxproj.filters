@@ -37,6 +37,9 @@
     <ClCompile Include="SocketOps.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
+    <ClCompile Include="DefaultPoller.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt">

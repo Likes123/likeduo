@@ -4,5 +4,5 @@
 cmake_minimum_required(VERSION 2.7)
 project(likeduo)
 set(LIBRARIES_FROM_REFERENCES "")
-add_executable(likeduo Channel.cpp EPollPoller.cpp EventLoop.cpp likeduo.cpp Poller.cpp SocketOps.cpp)
+add_executable(likeduo Channel.cpp DefaultPoller.cpp EPollPoller.cpp EventLoop.cpp likeduo.cpp Poller.cpp SocketOps.cpp)
 target_link_libraries(likeduo "${LIBRARIES_FROM_REFERENCES}")

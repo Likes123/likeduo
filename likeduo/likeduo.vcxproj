@@ -65,6 +65,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Channel.cpp" />
+    <ClCompile Include="DefaultPoller.cpp" />
     <ClCompile Include="EPollPoller.cpp" />
     <ClCompile Include="EventLoop.cpp" />
     <ClCompile Include="likeduo.cpp" />
