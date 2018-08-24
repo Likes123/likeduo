@@ -1,10 +1,38 @@
-﻿  VisualGDB: Updated source file list in D:\VSWorkPlace\likeduo\likeduo/CMakeLists.txt. Enable verbose mode for more details.
-  VisualGDB: Sending 2 updated source files to build machine...
+﻿  VisualGDB: Sending 1 updated source file to build machine...
   VisualGDB: Run "make " in directory "/home/laili/vsGDB/likeduo/Debug" on laili@192.168.1.55 (SSH)
-  -- Configuring done
-  -- Generating done
-  -- Build files have been written to: /home/laili/vsGDB/likeduo/Debug
   Scanning dependencies of target likeduo
-  [ 12%] Building CXX object CMakeFiles/likeduo.dir/DefaultPoller.cpp.o
-  [ 25%] Linking CXX executable likeduo
-  [100%] Built target likeduo
+  [  7%] Building CXX object CMakeFiles/likeduo.dir/Acceptor.cpp.o
+  D:\VSWorkPlace\likeduo\likeduo\Acceptor.cpp(13):
+D:\VSWorkPlace\likeduo\likeduo\InetAddress.h(33,3): error : expected class-name before ‘{’ token
+     {
+     ^
+D:\VSWorkPlace\likeduo\likeduo\InetAddress.h(41,26): error : expected ‘)’ before ‘ip’
+      InetAddress(StringArg ip, uint16_t port, bool ipv6 = false);
+                            ^
+D:\VSWorkPlace\likeduo\likeduo\InetAddress.h(54,4): error : ‘string’ does not name a type
+      string toIp() const;
+      ^
+D:\VSWorkPlace\likeduo\likeduo\InetAddress.h(55,4): error : ‘string’ does not name a type
+      string toIpPort() const;
+      ^
+D:\VSWorkPlace\likeduo\likeduo\InetAddress.h(69,24): error : ‘StringArg’ has not been declared
+      static bool resolve(StringArg hostname, InetAddress* result);
+                          ^
+  /home/laili/vsGDB/likeduo/Acceptor.cpp: In member function ‘void muduo::net::Acceptor::listen()’:
+D:\VSWorkPlace\likeduo\likeduo\Acceptor.cpp(51,9): error : ‘class muduo::net::EventLoop’ has no member named ‘assertInLoopThread’
+    loop_->assertInLoopThread();
+           ^
+  /home/laili/vsGDB/likeduo/Acceptor.cpp: In member function ‘void muduo::net::Acceptor::handleRead()’:
+D:\VSWorkPlace\likeduo\likeduo\Acceptor.cpp(59,9): error : ‘class muduo::net::EventLoop’ has no member named ‘assertInLoopThread’
+    loop_->assertInLoopThread();
+           ^
+  make[2]: *** [CMakeFiles/likeduo.dir/Acceptor.cpp.o] Error 1
+  make[1]: *** [CMakeFiles/likeduo.dir/all] Error 2
+  make: *** [all] Error 2
+  -------------------------------------------------------------
+  Command exited with code 2
+  Executable: make
+  Arguments: 
+  Directory: /home/laili/vsGDB/likeduo/Debug
+VisualGDB : error : Command-line action failed
+D:\VS2017\Common7\IDE\VC\VCTargets\Microsoft.MakeFile.Targets(44,5): error MSB3073: 命令“"C:\Program Files (x86)\Sysprogs\VisualGDB\\VisualGDB.exe" /build "D:\VSWorkPlace\likeduo\likeduo\likeduo.vcxproj" "/solution:D:\VSWorkPlace\likeduo\likeduo.sln" "/config:Debug" "/platform:Win32"”已退出，代码为 1。

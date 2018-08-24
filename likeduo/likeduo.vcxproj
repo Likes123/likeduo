@@ -64,13 +64,19 @@
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Acceptor.cpp" />
+    <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="Channel.cpp" />
+    <ClCompile Include="InetAddress.cpp" />
+    <ClCompile Include="Socket.cpp" />
+    <ClCompile Include="TcpConnection.cpp" />
     <ClCompile Include="DefaultPoller.cpp" />
     <ClCompile Include="EPollPoller.cpp" />
     <ClCompile Include="EventLoop.cpp" />
     <ClCompile Include="likeduo.cpp" />
     <ClCompile Include="Poller.cpp" />
     <ClCompile Include="SocketOps.cpp" />
+    <ClCompile Include="TcpServer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
@@ -80,14 +86,20 @@
     <None Include="likeduo-Release.vgdbsettings" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Acceptor.h" />
+    <ClInclude Include="Buffer.h" />
     <ClInclude Include="CallBack.h" />
     <ClInclude Include="Channel.h" />
+    <ClInclude Include="InetAddress.h" />
+    <ClInclude Include="Socket.h" />
+    <ClInclude Include="TcpConnection.h" />
     <ClInclude Include="Endian.h" />
     <ClInclude Include="EPollPoller.h" />
     <ClInclude Include="EventLoop.h" />
     <ClInclude Include="Logging.h" />
     <ClInclude Include="Poller.h" />
     <ClInclude Include="SocketOps.h" />
+    <ClInclude Include="TcpServer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -40,6 +40,24 @@
     <ClCompile Include="DefaultPoller.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
+    <ClCompile Include="TcpServer.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="TcpConnection.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="Socket.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="Buffer.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="InetAddress.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="Acceptor.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt">
@@ -77,6 +95,24 @@
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="Logging.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="TcpServer.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="TcpConnection.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="Socket.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="Buffer.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="InetAddress.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="Acceptor.h">
       <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>
